@@ -1,0 +1,20 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "description": "Coffee",
+      "type": "expense",
+      "category": "food",
+      "amount": 3.5,
+      "date": "2020-01-01T08:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "description": "Salary",
+      "type": "income",
+      "category": "salary",
+      "amount": 3000,
+      "date": "2020-01-01T08:00:00.000Z"
+    }
+  ]
+}
