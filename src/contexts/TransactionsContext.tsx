@@ -6,7 +6,7 @@ interface Transaction {
   type: "income" | "expense";
   category: string;
   amount: number;
-  created_at: string;
+  date: string;
 }
 
 interface TransactionsContextType {
