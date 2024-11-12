@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 import { Summary } from "../../components/Summary";
 import { SearchForm } from "./components/SearchForm";
@@ -7,7 +8,27 @@ import {
   TransactionsTable,
 } from "./styles";
 
+interface Transaction {
+  id: number;
+  description: string;
+  type: "income" | "outcome";
+  category: string;
+  amount: number;
+  created_at: string;
+}
+
 export function Transactions() {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3333/transactions")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setTransactions(data);
+      });
+  }, []);
+
   return (
     <div>
       <Header />
@@ -18,38 +39,21 @@ export function Transactions() {
 
         <TransactionsTable>
           <tbody>
-            <tr>
-              <td width="50%">Website development</td>
-              <td>
-                <PriceHightlight variant="income">$12,000.00</PriceHightlight>
-              </td>
-              <td>Sales</td>
-              <td>10/10/2021</td>
-            </tr>
-            <tr>
-              <td>Energy bill</td>
-              <td>
-                <PriceHightlight variant="outcome">- $250.00</PriceHightlight>
-              </td>
-              <td>Sales</td>
-              <td>10/10/2021</td>
-            </tr>
-            <tr>
-              <td>Water bill</td>
-              <td>
-                <PriceHightlight variant="outcome">- $150.00</PriceHightlight>
-              </td>
-              <td>Sales</td>
-              <td>10/10/2021</td>
-            </tr>
-            <tr>
-              <td>Dividends from Apple</td>
-              <td>
-                <PriceHightlight variant="income">$540.00</PriceHightlight>
-              </td>
-              <td>Dividends</td>
-              <td>10/10/2021</td>
-            </tr>
+            {transactions.map((transaction) => (
+              <tr key={transaction.id}>
+                <td width="50%">{transaction.description}</td>
+                <td>
+                  <PriceHightlight variant={transaction.type}>
+                    {new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "EUR",
+                    }).format(transaction.amount)}
+                  </PriceHightlight>
+                </td>
+                <td>{transaction.category}</td>
+                <td>{new Date(transaction.created_at).toLocaleDateString()}</td>
+              </tr>
+            ))}
           </tbody>
         </TransactionsTable>
       </TransactionsContainer>
