@@ -27,7 +27,7 @@ export function Transactions() {
               <tr key={transaction.id}>
                 <td width="50%">{transaction.description}</td>
                 <td>
-                  <PriceHightlight variant={transaction.type}>
+                  <PriceHightlight $variant={transaction.type}>
                     {currencyFormater.format(transaction.amount)}
                   </PriceHightlight>
                 </td>

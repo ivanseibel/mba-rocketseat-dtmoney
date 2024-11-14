@@ -22,7 +22,6 @@ export function TransactionsProvider({ children }: { children: ReactNode }) {
     fetch("http://localhost:3333/transactions")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setTransactions(data);
       });
   }, []);
