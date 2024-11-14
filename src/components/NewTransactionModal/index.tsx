@@ -1,5 +1,9 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as Dialog from "@radix-ui/react-dialog";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { ArrowCircleDown, ArrowCircleUp, X } from "phosphor-react";
+import { Controller, useForm } from "react-hook-form";
+import * as z from "zod";
 import {
   CloseButton,
   Content,
@@ -8,42 +12,91 @@ import {
   TransactionTypeButton,
 } from "./styles";
 
+const newTransactionSchema = z.object({
+  description: z.string(),
+  amount: z.number(),
+  category: z.string(),
+  type: z.enum(["income", "expense"]),
+});
+
+type NewTransactionFormData = z.infer<typeof newTransactionSchema>;
+
 export function NewTransactionModal() {
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<NewTransactionFormData>({
+    resolver: zodResolver(newTransactionSchema),
+    defaultValues: {
+      type: "income",
+    },
+  });
+
+  const handleCreateTransaction = (data: NewTransactionFormData): void => {
+    console.log(data);
+  };
+
   return (
     <Dialog.Portal>
       <Overlay />
       <Content>
-        <Dialog.Title asChild>New transaction</Dialog.Title>
+        <VisuallyHidden.Root>
+          <Dialog.Title>New transaction</Dialog.Title>
+          <Dialog.Description>
+            Fill the form below to create a new transaction
+          </Dialog.Description>
+        </VisuallyHidden.Root>
 
         <CloseButton asChild>
           <X size={24} />
         </CloseButton>
 
-        <form action="">
-          <input type="text" placeholder="Title" />
-          <input type="number" placeholder="Value" />
-          <input type="text" placeholder="Category" />
+        <form onSubmit={handleSubmit(handleCreateTransaction)}>
+          <input
+            type="text"
+            placeholder="Description"
+            {...register("description")}
+          />
+          <input
+            type="number"
+            placeholder="Amount"
+            {...register("amount", { valueAsNumber: true })}
+          />
+          <input type="text" placeholder="Category" {...register("category")} />
 
-          <TransactionType>
-            <TransactionTypeButton
-              type="button"
-              variant="income"
-              value="income"
-            >
-              <ArrowCircleUp size={24} />
-              Income
-            </TransactionTypeButton>
-            <TransactionTypeButton
-              type="button"
-              variant="expense"
-              value="expense"
-            >
-              <ArrowCircleDown size={24} />
-              Expense
-            </TransactionTypeButton>
-          </TransactionType>
+          <Controller
+            control={control}
+            name="type"
+            render={({ field }) => (
+              <TransactionType
+                onValueChange={field.onChange}
+                value={field.value}
+              >
+                <TransactionTypeButton
+                  type="button"
+                  $variant="income"
+                  value="income"
+                >
+                  <ArrowCircleUp size={24} />
+                  Income
+                </TransactionTypeButton>
+                <TransactionTypeButton
+                  type="button"
+                  $variant="expense"
+                  value="expense"
+                >
+                  <ArrowCircleDown size={24} />
+                  Expense
+                </TransactionTypeButton>
+              </TransactionType>
+            )}
+          />
 
-          <button type="submit">Create transaction</button>
+          <button type="submit" disabled={isSubmitting}>
+            Create transaction
+          </button>
         </form>
       </Content>
     </Dialog.Portal>
