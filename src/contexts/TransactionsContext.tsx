@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import {api} from '../libs/axios';
+import { api } from "../libs/axios";
 
 interface Transaction {
   id: number;
@@ -59,7 +59,9 @@ export function TransactionsProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <TransactionsContext.Provider value={{ transactions, fetchTransactions, createNewTransaction }}>
+    <TransactionsContext.Provider
+      value={{ transactions, fetchTransactions, createNewTransaction }}
+    >
       {children}
     </TransactionsContext.Provider>
   );
