@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { ArrowCircleDown, ArrowCircleUp, X } from "phosphor-react";
-import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 import { TransactionsContext } from "../../contexts/TransactionsContext";
@@ -13,6 +12,7 @@ import {
   TransactionType,
   TransactionTypeButton,
 } from "./styles";
+import { useContextSelector } from "use-context-selector";
 
 const newTransactionSchema = z.object({
   description: z.string(),
@@ -24,7 +24,7 @@ const newTransactionSchema = z.object({
 type NewTransactionFormData = z.infer<typeof newTransactionSchema>;
 
 export function NewTransactionModal() {
-  const { createNewTransaction } = useContext(TransactionsContext);
+  const createNewTransaction = useContextSelector(TransactionsContext, (context) => context.createNewTransaction);
 
   const {
     control,
