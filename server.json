@@ -63,6 +63,14 @@
       "type": "expense",
       "date": "2024-11-16T16:34:47.957Z",
       "id": 8
+    },
+    {
+      "description": "Coin found",
+      "amount": 1,
+      "category": "founds",
+      "type": "income",
+      "date": "2024-11-16T17:25:13.305Z",
+      "id": 9
     }
   ]
 }
