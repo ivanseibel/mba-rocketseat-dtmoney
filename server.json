@@ -23,6 +23,46 @@
       "category": "housing",
       "amount": 3000,
       "date": "2020-01-01T08:00:00.000Z"
+    },
+    {
+      "description": "Brazil trip tickets",
+      "type": "expense",
+      "category": "trips",
+      "amount": 1000,
+      "date": "2024-11-16T16:14:37.568Z",
+      "id": 4
+    },
+    {
+      "description": "Test",
+      "amount": 10,
+      "category": "tip",
+      "type": "income",
+      "date": "2024-11-16T16:25:13.048Z",
+      "id": 5
+    },
+    {
+      "description": "Tip",
+      "amount": 100,
+      "category": "tip",
+      "type": "income",
+      "date": "2024-11-16T16:26:24.812Z",
+      "id": 6
+    },
+    {
+      "description": "Costa Caffe Tip",
+      "amount": 100,
+      "category": "tip",
+      "type": "income",
+      "date": "2024-11-16T16:29:35.479Z",
+      "id": 7
+    },
+    {
+      "description": "Top up shopping",
+      "amount": 50,
+      "category": "food",
+      "type": "expense",
+      "date": "2024-11-16T16:34:47.957Z",
+      "id": 8
     }
   ]
 }
