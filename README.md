@@ -1,5 +1,10 @@
 # DT Money
 
+<p align="center">
+  <img src="/screenshots/screen1.png" width="45%" />
+  <img src="/screenshots/screen2.png" width="45%" />
+</p>
+
 Welcome to the **DT Money** project! This is a project developed as part of the **MBA Full Stack Web Development**, where we will explore fundamental React concepts such as API consumption, performance, accessibility, and more.
 
 ## Project Objective
